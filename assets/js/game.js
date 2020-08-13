@@ -130,7 +130,11 @@ var playAgainConfirm = window.confirm("Would you like to play again?");
   }
   else {
     window.alert("Thank you for playing Robot Gladiators! Come back soon!");
+<<<<<<< HEAD
   }
 
 // start the game when the page loads
 //startGame();
+=======
+  }
+>>>>>>> develop
