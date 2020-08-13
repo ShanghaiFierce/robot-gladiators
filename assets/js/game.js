@@ -13,14 +13,16 @@ var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack = 12;
 
+// function to generate a random numeric value
+var randomNumber = function(min, max) {
+  var value = Math.floor(Math.random() * (max - min + 1) + min);
+  
+  return value;
+};
+
 var fight = function (enemyName) {
   // repeat and execute as long as the enemy robot is alive 
   while (enemyHealth > 0 && playerHealth > 0) {
-    // place fight function code block here . . .
-    ////fight(enemyRobot);
-
-    //Alert users that they are starting the round
-    window.alert("Welcome to M's Robot Gladiators!");
 
     // ask user if they'd liked to fight or run
     var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
@@ -34,15 +36,17 @@ var fight = function (enemyName) {
       if (confirmSkip) {
         window.alert(playerName + ' has decided to skip this fight. Goodbye!');
         // subtract money from playerMoney for skipping
-        playerMoney = playerMoney - 10;
+        playerMoney = Math.max(0, playerMoney - 10);
         console.log("playerMoney", playerMoney)
         break;
       }
-    }
+    };
     // if player choses to fight, then fight
     if (promptFight === "fight" || promptFight === "FIGHT") {
-    // remove enemy's health by subtracting the amount set in the playerAttack variable
-      enemyHealth = enemyHealth - playerAttack;
+      // generate random damage value based on player's attack power
+      var damage = randomNumber(playerAttack - 3, playerAttack);
+
+      enemyHealth = Math.max(0, enemyHealth - damage);
       console.log(
         playerName + ' attacked ' + enemyName + '. ' + enemyName + ' now has ' + enemyHealth + ' health remaining.'
       );
@@ -60,9 +64,11 @@ var fight = function (enemyName) {
         window.alert(enemyName + ' still has ' + enemyHealth + ' health left.');
       }
 
-      // remove players's health by subtracting the amount set in the enemyAttack variable
-      playerHealth = playerHealth - enemyAttack;
-      console.log(
+        // generate random damage value based on enemy's attack power
+        var damage = randomNumber(enemyAttack - 3, enemyAttack);
+
+        playerHealth = Math.max(0, playerHealth - damage);
+        console.log(
         enemyName + ' attacked ' + playerName + '. ' + playerName + ' now has ' + playerHealth + ' health remaining.'
       );
 
@@ -75,8 +81,8 @@ var fight = function (enemyName) {
         window.alert(playerName + ' still has ' + playerHealth + ' health left.');
       }
     }
-  }     
-};
+  }
+};     
 
 // function to start a new game
 var startGame = function () {
@@ -91,7 +97,7 @@ var startGame = function () {
     
     var pickedEnemyName = enemyNames[i];
 
-    enemyHealth = 50;
+    enemyHealth = randomNumber(40,60);
 
     fight(pickedEnemyName);
 
@@ -109,9 +115,6 @@ var startGame = function () {
       window.alert("You have lost your robot in battle! Game over!");
       break;
       }
-
-    //play again
-    startGame();
 
     // after the loop ends, player is either out of health or enemies to fight, so run the endGame function
     endGame();
@@ -138,9 +141,11 @@ var endGame = function () {
   }
   else {
     window.alert("Thank you for playing Robot Gladiators! Come back soon!");
-<<<<<<< HEAD
   }
 };
+
+// start the game when the page loads
+startGame();
 
 var shop = function() {  
   // ask player what they'd like to do
@@ -181,16 +186,10 @@ var shop = function() {
       window.alert("Leaving the store.");
 
       break;
-    default:
-      window.alert("You did not pick a valid option. Try again.");
-      shop();
-      
+      // default:
+      // window.alert("You did not pick a valid option. Try again.");
+      // shop();
+
       break;
   };
 };
-
-// start the game when the page loads
-startGame();
-=======
-  }
->>>>>>> 3f6d72e0a52a4099c0c9d0dc39abd3fe7cf52955
